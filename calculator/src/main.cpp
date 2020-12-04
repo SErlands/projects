@@ -11,6 +11,7 @@ int main(){
     // main loop
     prog.welcome_message();
     prog.get_input();
+    prog.create_tree();
     prog.print_input();
     
     return 0;
