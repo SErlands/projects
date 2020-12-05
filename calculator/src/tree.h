@@ -16,6 +16,7 @@ class Tree_node{
         Tree_node(std::string input_string);
         Tree_node(std::string left_expr, std::string right_node); 
         void print_tree();
+        double evaluate();
 
 };
 
@@ -23,7 +24,6 @@ class Equal: public Tree_node{
     private:
     public:
         Equal(std::string expr);
-        void evaluate();
 };
 
 class Leaf: public Tree_node {
@@ -31,16 +31,12 @@ class Leaf: public Tree_node {
         double value;
     public:
         Leaf(std::string expr);
-        void evaluate();
-
 };
 
 class Addition: public Tree_node {
     private:
     public: 
         Addition(std::string left_expr,std::string right_expr);
-        void evaluate();
-        
 };
 
 #endif

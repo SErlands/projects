@@ -46,7 +46,7 @@ bool is_expr(std::string expr){
     bool prev_int = false;
     bool prev_oper = false;
 
-    for(int i = 0; i < expr.length(); i++){
+    for(unsigned int i = 0; i < expr.length(); i++){
         if(is_int(expr[i])){
             if (prev_space && prev_int && !prev_oper) {
                 std::cout << 
@@ -88,7 +88,7 @@ bool is_expr(std::string expr){
 // Finds the first operator and return its place
 // If no operator is found, returns zero
 int find_first_oper(std::string expr){
-    for (int i = 0; i<expr.length(); i++) {
+    for (unsigned int i = 0; i<expr.length(); i++) {
         if (is_oper(expr[i])) {
             return i;
         }
@@ -96,10 +96,10 @@ int find_first_oper(std::string expr){
     return 0;
 }
 
-// Finds the first operator and return its place
+// Finds the first equal sign and return its place
 // If no operator is found, returns zero
 int find_first_equal(std::string expr){
-    for (int i = 0; i<expr.length(); i++) {
+    for (unsigned int i = 0; i<expr.length(); i++) {
         if (expr[i] == '=') {
             return i;
         }

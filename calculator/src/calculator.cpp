@@ -38,6 +38,6 @@ void Inter_face::print_input(){
 }
 
 void Inter_face::create_tree(){
-    this->root = new Equal(input_string);
+    root = new Equal(input_string);
     return;
 }
