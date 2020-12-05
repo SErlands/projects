@@ -13,4 +13,6 @@ bool is_expr(std::string expr);
 
 int find_first_oper(std::string expr);
 
+int find_first_equal(std::string expr);
+
 #endif

@@ -96,4 +96,13 @@ int find_first_oper(std::string expr){
     return 0;
 }
 
-
+// Finds the first operator and return its place
+// If no operator is found, returns zero
+int find_first_equal(std::string expr){
+    for (int i = 0; i<expr.length(); i++) {
+        if (expr[i] == '=') {
+            return i;
+        }
+    }
+    return 0;
+}

@@ -33,11 +33,11 @@ void Inter_face::print_input(){
         << std::endl;
     std::cout << "Current tree is: ";
     this->root->print_tree();
-    std::cout<<std::endl;
+    std::cout<< " :end of tree" << std::endl;
     return;
 }
 
 void Inter_face::create_tree(){
-    this->root = new Tree_node(input_string);
+    this->root = new Equal(input_string);
     return;
 }
