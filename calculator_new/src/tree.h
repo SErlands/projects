@@ -19,7 +19,6 @@ class Tree_node{
 
         void print_tree();
         virtual double evaluate();
-
 };
 
 // EQUAL ----------------------------------------------------------------------  

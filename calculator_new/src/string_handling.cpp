@@ -2,6 +2,8 @@
 
 #include <string>
 #include <iostream>
+#include <algorithm>
+
 // Return true if char is space
 bool is_space(char c)
 {
@@ -23,7 +25,8 @@ bool is_int(char c)
         || c == '6'
         || c == '7'
         || c == '8'
-        || c == '9')
+        || c == '9'
+        || c == '0')
         return true;
     return false;
 }
@@ -39,6 +42,22 @@ bool is_oper(char c)
         return true;
     return false;
 }
+
+bool is_command(std::string input_str)
+{
+    input_str.erase(std::remove_if(input_str.begin(), input_str.end(), isspace), input_str.end());
+    if(input_str.length() == 1){
+        char c = input_str[0];
+        if (c == 'h'
+                || c == 'i'
+                || c == 'p'
+                || c == 'd'
+                || c == 'q')
+            return true;
+    }
+    return false;
+}
+
 
 // Returns true if input is a correct expresion
 bool is_expr(std::string expr){

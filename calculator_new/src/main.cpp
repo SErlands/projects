@@ -2,19 +2,17 @@
 
 #include "calculator.h"
 
-
-
-
 int main(){
     // Setup
     Inter_face prog; 
-    // main loop
     prog.welcome_message();
-    prog.get_input();
-    prog.create_tree();
-    prog.print_input();
-    prog.evaluate_tree();
-    prog.delete_tree();
+    prog.help_message();
+    // main loop
+    while(!prog.quit()){
+        prog.get_command();
+    }
+
+    prog.end_message();
     
     return 0;
 

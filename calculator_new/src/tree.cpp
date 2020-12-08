@@ -36,8 +36,8 @@ Tree_node* choose_node_type(std::string expr){
 // TREE_NODE ------------------------------------------------------------------
 Tree_node::Tree_node(){
 
-    this->left_node = NULL;
-    this->right_node = NULL;
+    this->left_node = nullptr;
+    this->right_node = nullptr;
     return;
 }
 
@@ -49,16 +49,15 @@ Tree_node::Tree_node(std::string left_expr, std::string right_expr){
 }
 
 Tree_node::~Tree_node(){
-    std::cout<<"destructor called"<<std::endl;
     return;
 }
 
 void Tree_node::print_tree(){
-    if (left_node != NULL) {
+    if (left_node != nullptr) {
         this->left_node->print_tree();
     }
     std::cout<<this->print_str;
-    if (right_node != NULL) {
+    if (right_node != nullptr) {
         this->right_node->print_tree();
     }
     return;
@@ -87,11 +86,13 @@ Equal::Equal(std::string expr):Tree_node(){
 }
 
 Equal::~Equal(){
-    if(left_node)
+    if(left_node != nullptr){
         delete left_node;
+        left_node = nullptr;
+    }
     delete right_node;
+    right_node = nullptr;
     std::cout<<"Equal deleted"<<std::endl;
-    delete this;
     return;
 }
 
@@ -101,7 +102,7 @@ double Equal::evaluate(){
 
     double right_value = this->right_node->evaluate();
     double left_value;
-    if(left_node != NULL){
+    if(left_node != nullptr){
         left_value = this->left_node->evaluate();
         std::cout<<left_value<<" = "<<right_value<<std::endl;
     }else{
@@ -121,15 +122,14 @@ Leaf::Leaf(std::string expr):Tree_node(){
 }
 
 Leaf::~Leaf(){
-    delete this;
     std::cout<<"Leaf destructor called"<<std::endl;
+    left_node = nullptr;
+    right_node = nullptr;
     return;
 }
 
 double Leaf::evaluate(){
-  
     std::cout<<" calculating : "<<value<<std::endl;
-
     return value;
 }
 
@@ -142,9 +142,10 @@ Operator::Operator(std::string left_expr, std::string right_expr):
 
 Operator::~Operator(){
     delete left_node;
+    left_node = nullptr; 
     delete right_node;
+    right_node = nullptr;
     std::cout<<"Operator destructor called"<<std::endl;
-    delete this;
     return;
 }
 
