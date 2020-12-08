@@ -50,6 +50,7 @@ Tree_node::Tree_node(std::string left_expr, std::string right_expr){
 
 Tree_node::~Tree_node(){
     std::cout<<"destructor called"<<std::endl;
+    return;
 }
 
 void Tree_node::print_tree(){
@@ -85,20 +86,29 @@ Equal::Equal(std::string expr):Tree_node(){
     return;
 }
 
+Equal::~Equal(){
+    if(left_node)
+        delete left_node;
+    delete right_node;
+    std::cout<<"Equal deleted"<<std::endl;
+    delete this;
+    return;
+}
+
 double Equal::evaluate(){
 
     std::cout<<" calculating : = "<<std::endl;
 
+    double right_value = this->right_node->evaluate();
     double left_value;
     if(left_node != NULL){
         left_value = this->left_node->evaluate();
+        std::cout<<left_value<<" = "<<right_value<<std::endl;
     }else{
         left_value = 0;
+        std::cout<<right_value<<std::endl;
     }
 
-    double right_value = this->right_node->evaluate();
-
-    std::cout<<left_value<<" = "<<right_value<<std::endl;
     return right_value;
 }
     
@@ -110,6 +120,12 @@ Leaf::Leaf(std::string expr):Tree_node(){
     return;
 }
 
+Leaf::~Leaf(){
+    delete this;
+    std::cout<<"Leaf destructor called"<<std::endl;
+    return;
+}
+
 double Leaf::evaluate(){
   
     std::cout<<" calculating : "<<value<<std::endl;
@@ -117,9 +133,29 @@ double Leaf::evaluate(){
     return value;
 }
 
+// OPERATOR -------------------------------------------------------------------                                  
+Operator::Operator(std::string left_expr, std::string right_expr):
+    Tree_node(left_expr, right_expr)
+{
+    return;
+}
+
+Operator::~Operator(){
+    delete left_node;
+    delete right_node;
+    std::cout<<"Operator destructor called"<<std::endl;
+    delete this;
+    return;
+}
+
+double Operator::evaluate(){
+    std::cout<<"ERROR: evaluate from operator baseclass should never be called"
+        <<std::endl;
+    return 0;
+}
 // ADDITION -------------------------------------------------------------------
 Addition::Addition(std::string left_expr, std::string right_expr):
-    Tree_node(left_expr, right_expr)
+    Operator(left_expr, right_expr)
 {
     std::cout<<"createing node: +"<<std::endl;
     this->print_str = "+";
@@ -137,7 +173,7 @@ double Addition::evaluate(){
 
 // SUBTRACTION ----------------------------------------------------------------
 Subtraction::Subtraction(std::string left_expr, std::string right_expr):
-    Tree_node(left_expr, right_expr)
+    Operator(left_expr, right_expr)
 {
     std::cout<<"createing node: +"<<std::endl;
     this->print_str = "-";

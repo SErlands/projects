@@ -48,3 +48,8 @@ void Inter_face::evaluate_tree(){
     std::cout<<"Result = "<< result<<std::endl;
     return;
 }
+
+void Inter_face::delete_tree(){
+    delete this->root;
+    return;
+}

@@ -14,6 +14,7 @@ int main(){
     prog.create_tree();
     prog.print_input();
     prog.evaluate_tree();
+    prog.delete_tree();
     
     return 0;
 

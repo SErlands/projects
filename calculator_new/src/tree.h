@@ -4,7 +4,7 @@
 #include <string>
 
 
-
+// TREE_NODE ------------------------------------------------------------------
 class Tree_node{
     protected:
         Tree_node* left_node;
@@ -22,39 +22,51 @@ class Tree_node{
 
 };
 
+// EQUAL ----------------------------------------------------------------------  
 class Equal: public Tree_node{
     private:
     public:
         Equal(std::string expr);
-        ~Equal(){};
+        ~Equal();
 
         double evaluate();
 };
 
+// LEAF -----------------------------------------------------------------------
 class Leaf: public Tree_node {
     private:
         double value;
     public:
         Leaf(std::string expr);
-        ~Leaf(){};
+        ~Leaf();
 
         double evaluate();
 };
 
-class Addition: public Tree_node {
+// OPERATOR -------------------------------------------------------------------
+class Operator: public Tree_node {
+    private:
+    public:
+        Operator(std::string left_expr, std::string right_expr);
+        ~Operator();
+
+        virtual double evaluate();
+};
+
+// ADDITION -------------------------------------------------------------------
+class Addition: public Operator {
     private:
     public: 
         Addition(std::string left_expr,std::string right_expr);
-        ~Addition(){};
 
         double evaluate();
 };
 
-class Subtraction: public Tree_node {
+// SUBTRACTION ----------------------------------------------------------------
+class Subtraction: public Operator {
     private:
     public: 
         Subtraction(std::string left_expr,std::string right_expr);
-        ~Subtraction(){};
 
         double evaluate();
 };

@@ -15,6 +15,7 @@ class Inter_face{
         void print_input();
         void create_tree();
         void evaluate_tree();
+        void delete_tree();
 };
 
 class Tree_node;
