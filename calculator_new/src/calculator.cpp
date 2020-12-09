@@ -8,13 +8,18 @@
 #include <string>
 
 Inter_face::Inter_face(){
-    this->root = nullptr;
+    this->root_arr = new Tree_node*[10];
     this->quit_program = false;
 }
 
 Inter_face::~Inter_face(){
-    this->delete_tree();
-    this->root = nullptr;
+
+    for(int i=0; i<=9; i++){
+        if(this->root_arr[i] != nullptr)
+            delete this->root_arr[i];
+    }
+
+    delete[] this->root_arr;
     return;
 }
 
@@ -54,13 +59,12 @@ void Inter_face::get_command(){
         case 'h' : this->help_message();
                    break;
         case 'i' : this->get_equation();
-                   this->create_tree();
                    break;
-        case 'p' : this->print_tree(); 
+        case 'p' : this->print_root_arr(); 
                    break;
-        case 'c' : this->evaluate_tree();
+        case 'c' : this->evaluate_tree_node();
                    break;
-        case 'd' : this->delete_tree();
+        case 'd' : this->delete_tree_node();
                    break;
         case 'q' : this->quit_program = true;
                    break;
@@ -73,6 +77,12 @@ void Inter_face::get_command(){
 
 void Inter_face::get_equation(){
     std::string str_tmp;
+
+    std::cout<<"Enter where to store equation (0-9): "<<std::flush;
+    int reg = get_reg_from_input();
+    if(reg == 11)
+        return;
+
     std::cout<<"Please enter expresion: "<<std::flush;
     std::cin>>str_tmp;
     if(!is_expr(str_tmp)){
@@ -80,29 +90,59 @@ void Inter_face::get_equation(){
         return;
     }
     str_tmp.erase(std::remove_if(str_tmp.begin(), str_tmp.end(), isspace), str_tmp.end());
-    input_string = str_tmp;
-}
-
-void Inter_face::create_tree(){
-    root = new Equal(input_string);
+    this->create_tree(reg, str_tmp);
     return;
 }
 
-void Inter_face::evaluate_tree(){
-    std::cout<<"Calculating tree..."<<std::endl;
-    double result = root->evaluate();
+void Inter_face::print_root_arr(){
+    std::cout<<"+----- Current stored equations -----"<<std::endl;
+    for(int i=0; i<=9; i++){
+        std::cout<<"+ "<< i <<": ";
+        if(this->root_arr[i] != nullptr)
+            this->root_arr[i]->print_tree();
+        std::cout<<std::endl;
+    }
+    std::cout<<"+------------------------------------"<<std::endl;
+}
+
+void Inter_face::create_tree(int i, std::string expr){
+    this->root_arr[i] = new Equal(expr);
+    return;
+}
+
+void Inter_face::evaluate_tree_node(){
+
+    std::cout<<"Enter which equation to evaluate (0-9): "<<std::flush;
+    int reg = get_reg_from_input();
+    if(reg == 11)
+        return;
+
+    std::cout<<"Calculating..."<<std::endl;
+    double result = root_arr[reg]->evaluate();
     std::cout<<"Result = "<< result<<std::endl;
     return;
 }
 
-void Inter_face::delete_tree(){
-    delete this->root;
+void Inter_face::delete_tree_node(){
+
+    std::cout<<"Enter which equation to delete (0-9): "<<std::flush;
+    int reg = get_reg_from_input();
+    if(reg == 11)
+        return;
+
+    delete this->root_arr[reg];
     return;
 }
 
-void Inter_face::print_tree(){
+void Inter_face::print_tree_node(){
+
+    std::cout<<"Enter which equation to print (0-9): "<<std::flush;
+    int reg = get_reg_from_input();
+    if(reg == 11)
+        return;
+
     std::cout<<"Current equation is: ";
-    this->root->print_tree();
+    this->root_arr[reg]->print_tree();
     std::cout<<std::endl;
     return;
 }

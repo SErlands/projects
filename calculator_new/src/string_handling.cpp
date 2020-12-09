@@ -78,7 +78,6 @@ bool is_command(std::string input_str)
     return false;
 }
 
-
 // Returns true if input is a correct expresion
 bool is_expr(std::string expr){
     bool prev_space = false;
@@ -168,3 +167,16 @@ int find_first_secd(std::string expr){
     return 0;
 }
 
+
+int get_reg_from_input(){
+    std::string str_tmp;
+    std::cin>>str_tmp;
+
+    if(!is_int(str_tmp[0])){
+        std::cout<<"You need to choose a numder between 0-9"<<std::endl;
+        return 11;
+    }
+
+    int reg = str_tmp[0] - '0';
+    return reg;
+}

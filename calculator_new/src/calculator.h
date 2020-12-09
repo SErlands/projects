@@ -7,7 +7,7 @@
 class Inter_face{
     private:
         std::string input_string;
-        Tree_node* root;
+        Tree_node** root_arr;
         bool quit_program;
     public:
         Inter_face();
@@ -20,10 +20,12 @@ class Inter_face{
         void handle_command();
         void get_equation();
 
-        void create_tree();
-        void evaluate_tree();
-        void delete_tree();
-        void print_tree();
+        void print_root_arr();
+
+        void create_tree(int i, std::string expr);
+        void evaluate_tree_node();
+        void delete_tree_node();
+        void print_tree_node();
 };
 
 class Tree_node;

@@ -21,4 +21,6 @@ int find_first_prim(std::string expr);
 
 int find_first_secd(std::string expr);
 
+int get_reg_from_input();
+
 #endif
