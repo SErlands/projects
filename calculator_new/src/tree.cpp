@@ -8,7 +8,11 @@
 
 Tree_node* choose_node_type(std::string expr){
 
-    int oper_place = find_first_oper(expr); 
+    int oper_place = find_first_secd(expr); 
+
+    if(oper_place == 0)
+        oper_place = find_first_prim(expr); 
+
 
     if (oper_place==0) {
         return new Leaf(expr);
@@ -21,6 +25,16 @@ Tree_node* choose_node_type(std::string expr){
                 break;
             case '-':
                 return new Subtraction(
+                        expr.substr(0,oper_place),
+                        expr.substr(oper_place + 1, expr.length()));
+                break;
+            case '*':
+                return new Multiplication(
+                        expr.substr(0,oper_place),
+                        expr.substr(oper_place + 1, expr.length()));
+                break;
+            case '/':
+                return new Division(
                         expr.substr(0,oper_place),
                         expr.substr(oper_place + 1, expr.length()));
                 break;
@@ -176,7 +190,7 @@ double Addition::evaluate(){
 Subtraction::Subtraction(std::string left_expr, std::string right_expr):
     Operator(left_expr, right_expr)
 {
-    std::cout<<"createing node: +"<<std::endl;
+    std::cout<<"createing node: -"<<std::endl;
     this->print_str = "-";
     return;
 }
@@ -190,3 +204,38 @@ double Subtraction::evaluate(){
     return left_value - right_value;
 }
 
+// MULTIPLICATION -------------------------------------------------------------
+Multiplication::Multiplication(std::string left_expr, std::string right_expr):
+    Operator(left_expr, right_expr)
+{
+    std::cout<<"createing node: *"<<std::endl;
+    this->print_str = "*";
+    return;
+}
+
+double Multiplication::evaluate(){
+
+    std::cout<<" calculating : *"<<std::endl;
+
+    double left_value = this->left_node->evaluate();
+    double right_value = this->right_node->evaluate();
+    return left_value * right_value;
+}
+    
+// DIVISION -------------------------------------------------------------------
+Division::Division(std::string left_expr, std::string right_expr):
+    Operator(left_expr, right_expr)
+{
+    std::cout<<"createing node: /"<<std::endl;
+    this->print_str = "/";
+    return;
+}
+
+double Division::evaluate(){
+
+    std::cout<<" calculating : /"<<std::endl;
+
+    double left_value = this->left_node->evaluate();
+    double right_value = this->right_node->evaluate();
+    return left_value / right_value;
+}

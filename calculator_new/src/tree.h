@@ -69,4 +69,24 @@ class Subtraction: public Operator {
 
         double evaluate();
 };
+
+// MULTIPLICATION -------------------------------------------------------------
+class Multiplication: public Operator {
+    private:
+    public:
+        Multiplication(std::string left_expr, std::string right_expr);
+
+        double evaluate();
+};
+
+// DIVISION -------------------------------------------------------------
+class Division: public Operator {
+    private:
+    public:
+        Division(std::string left_expr, std::string right_expr);
+
+        double evaluate();
+};
+
+
 #endif

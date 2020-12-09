@@ -43,6 +43,26 @@ bool is_oper(char c)
     return false;
 }
 
+// Return true if c is a supported primary operator
+bool is_prim_oper(char c)
+{
+    c = tolower(c);
+    if (c == '*'
+        || c == '/')
+        return true;
+    return false;
+}
+
+// Return true if c is a supported secondary operator
+bool is_secd_oper(char c)
+{
+    c = tolower(c);
+    if (c == '+'
+        || c == '-')
+        return true;
+    return false;
+}
+
 bool is_command(std::string input_str)
 {
     input_str.erase(std::remove_if(input_str.begin(), input_str.end(), isspace), input_str.end());
@@ -125,3 +145,26 @@ int find_first_equal(std::string expr){
     }
     return 0;
 }
+
+// Finds the first primary operator and return its place
+// If no operator is found, returns zero
+int find_first_prim(std::string expr){
+    for (unsigned int i = 0; i<expr.length(); i++) {
+        if (is_prim_oper(expr[i])) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+// Finds the first secondary operator and return its place
+// If no operator is found, returns zero
+int find_first_secd(std::string expr){
+    for (unsigned int i = 0; i<expr.length(); i++) {
+        if (is_secd_oper(expr[i])) {
+            return i;
+        }
+    }
+    return 0;
+}
+
